@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html>
+<title>I LIEK MUFFINS</title>
+<head>
+<style>
+@font-face {
+	src: url(fonts/Cookies.ttf);
+	font-family: cookies;
+}
+* {
+	margin : 0;
+	padding: 0;
+	font-family: cookies, arial;
+}
+canvas {
+	display: block;
+}
+#main {
+	font-size: 72px;
+	color: white;
+	text-shadow: 0px 0px 10px white;
+	animation: color 0.65s cubic-bezier(1, 0, 0, 1) infinite;
+}
+
+@keyframes color {
+  0% { color: #ff0000; }
+  12.5% { color: #ff007f; }  
+  25% { color: #7b00ff; }
+  37.5% { color: #0019ff; }
+  50% { color: #00e5ff; }
+  62.5% { color: #00ff2a; }
+  75% { color: #eeff00; }
+  87.5% { color: #ff9900; }
+  100% { color: #white; }
+}
+</style>
+<script>
+function randomColor () {
+	return '#' + ['ff0000', 'ff007f', '7b00ff', '0019ff', '00e5ff', '00ff2a', 'eeff00', 'ff9900'][Math.floor(Math.random() * 8)];
+}
+window.onload = function () {
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+	
+	var x = Math.floor(Math.random() * window.innerWidth) + 1;
+	var y = Math.floor(Math.random() * window.innerHeight) + 1;
+	var color = randomColor();
+	
+	function thingy () {
+		this.x = x
+		this.y = y
+		this.color = color;
+		this.radius = Math.floor(Math.random() * 40) + 1;
+		this.speedx = Math.floor(Math.random () * 40) - 20;
+		this.speedy = Math.floor(Math.random () * 40) - 20;
+		this.draw = function () {
+			ctx.beginPath();
+			var gradient = ctx.createRadialGradient(this.x, this.y, this.radius, this.x, this.y, this.radius/2);
+			gradient.addColorStop(0, 'black');
+			gradient.addColorStop(1, this.color);
+			ctx.fillStyle = gradient;
+			ctx.arc(this.x, this.y, this.radius, Math.PI*2, 0);
+			ctx.closePath()
+			ctx.fill();
+		}
+		this.advance = function () {
+			this.x += this.speedx
+			this.y += this.speedy
+			this.radius -= 2;
+		}
+	}
+	
+	var arr = [];
+	for (var i = 0; i < 150; i++) {
+		arr.push(new thingy());
+	}
+	
+	var count = 0;
+	function draw () {
+		ctx.globalCompositeOperation = 'source-over';
+		ctx.fillStyle = 'black';
+		ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+		ctx.globalCompositeOperation = 'lighter';
+		for (var i = 0; i < 150; i++) {
+			var bomb = arr[i];
+			bomb.draw();
+			bomb.advance();
+			if (bomb.radius <= 0) arr[i] = new thingy();
+		}
+		count++;
+		if (count % 8 === 0) {
+			x = Math.floor(Math.random() * window.innerWidth) + 1;
+			y = Math.floor(Math.random() * 700) + 1;
+			color = randomColor();
+		}
+	}
+	setInterval(draw, 35);
+}
+</script>
+</head>
+<body>
+	<audio autoplay loop src = "http://silvertactic.github.io/OMFG%20-%20Hello.mp3"></audio>
+	<canvas id = "canvas"></canvas>
+	<div style = "position: absolute; width: 100%; text-align: center; color: white; top: 20%;"> 
+		<marquee direction = "right" scrollamount = "25"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"></marquee>
+		<br>
+		<div id = "main"><marquee behavior = "alternate" width = "110px" scrollamount = "269"><img src = "http://silvertactic.github.io/smiley1.png" width = "100px" height = "100px"></marquee> HAPPY BIRTHDAY PRATIK! <marquee behavior = "alternate" width = "110px" scrollamount = "269"><img src = "http://silvertactic.github.io/smiley1.png" width = "100px" height = "100px"></marquee></div>
+		<br>
+		<marquee direction = "right" scrollamount = "25" style = "transform: rotateY(180deg);"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"><img src = "http://silvertactic.github.io/nyan.gif" height = "105" width = "150"></marquee>
+	</div>
+	<div style = "position: absolute; bottom: 0; right: 0; transform: rotateY(180deg);">
+		<div style = "position: relative; height: 140px; overflow: hidden">
+			<img src = "http://silvertactic.github.io/dancingfrog.gif" style = "width: 160px; height: 140px;">
+			<img src = "http://silvertactic.github.io/dancingfrog.gif" style = "width: 160px; height: 140px;">
+			<img src = "http://silvertactic.github.io/dancingfrog.gif" style = "width: 160px; height: 140px;">
+			<img src = "http://silvertactic.github.io/dancingfrog.gif" style = "width: 160px; height: 140px;">
+		</div>
+	</div>
+	
+	<div style = "position: absolute; bottom: 0; left: 0;">
+		<div style = "position: relative; height: 140px; overflow: hidden">
+			<img src = "http://silvertactic.github.io/dancingfrog.gif" style = "width: 160px; height: 140px;">
+			<img src = "http://silvertactic.github.io/dancingfrog.gif" style = "width: 160px; height: 140px;">
+			<img src = "http://silvertactic.github.io/dancingfrog.gif" style = "width: 160px; height: 140px;">
+			<img src = "http://silvertactic.github.io/dancingfrog.gif" style = "width: 160px; height: 140px;">
+		</div>
+	</div>
+</body>
+</html>
